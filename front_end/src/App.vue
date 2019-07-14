@@ -3,7 +3,7 @@
     <div class="page-container">
       <md-app>
         <md-app-toolbar class="md-primary" md-elevation="0">
-          <md-button class="md-icon-button" @click="toggleMenu" v-if="!menuVisible">
+          <md-button class="md-icon-button" v-if="!menuVisible">
             <md-icon>menu</md-icon>
           </md-button>
           <span class="md-title">My Day</span>
@@ -11,40 +11,40 @@
 
         <md-app-drawer :md-active.sync="menuVisible" md-persistent="mini">
           <md-toolbar class="md-transparent" md-elevation="0">
-            <span>Navigation</span>
+            <span>User Icon & Ids</span>
 
             <div class="md-toolbar-section-end">
-              <md-button class="md-icon-button md-dense" @click="toggleMenu">
-                <md-icon>keyboard_arrow_left</md-icon>
+              <md-button class="md-icon-button md-dense">
+                <md-icon>search</md-icon>
               </md-button>
             </div>
           </md-toolbar>
 
           <md-list>
             <md-list-item>
-              <md-icon>move_to_inbox</md-icon>
-              <span class="md-list-item-text">Inbox</span>
+              <md-icon>wb_sunny</md-icon>
+              <span class="md-list-item-text" @click="clickListName('001')">My Day</span>
             </md-list-item>
 
             <md-list-item>
-              <md-icon>send</md-icon>
-              <span class="md-list-item-text">Sent Mail</span>
+              <md-icon>star_border</md-icon>
+              <span class="md-list-item-text" @click="clickListName('002')">Important</span>
             </md-list-item>
 
             <md-list-item>
-              <md-icon>delete</md-icon>
-              <span class="md-list-item-text">Trash</span>
+              <md-icon>calendar_today</md-icon>
+              <span class="md-list-item-text" @click="clickListName('003')">Planned</span>
             </md-list-item>
 
             <md-list-item>
-              <md-icon>error</md-icon>
-              <span class="md-list-item-text">Spam</span>
+              <md-icon>done</md-icon>
+              <span class="md-list-item-text" @click="clickListName('004')">Tasks</span>
             </md-list-item>
           </md-list>
         </md-app-drawer>
 
         <md-app-content>
-          <TodoList></TodoList>
+          <TodoList :todoListCode="todoListCode"></TodoList>
         </md-app-content>
       </md-app>
     </div>
@@ -53,19 +53,21 @@
 
 <script>
 import TodoList from "@/components/TodoList";
-
 export default {
-  name: "app",
-  data: () => ({
-    menuVisible: false
-  }),
+  data() {
+    return {
+      curInput: "",
+      menuVisible: true,
+      todoListCode: ""
+    };
+  },
   methods: {
-    toggleMenu() {
-      this.menuVisible = !this.menuVisible;
+    clickListName(code) {
+      this.todoListCode = code;
     }
   },
   components: {
-    TodoList
+    TodoList: TodoList
   }
 };
 </script>
@@ -81,3 +83,5 @@ export default {
   max-width: calc(100vw - 125px);
 }
 </style>
+
+
